@@ -20,10 +20,17 @@ RUN apt-get install -y \
     lshw \
     at 
 
+#Install Wazuh Agent
+RUN curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | apt-key add -
+RUN echo "deb https://packages.wazuh.com/4.x/apt/ stable main" | tee /etc/apt/sources.list.d/wazuh.list
+RUN apt-get update -y --fix-missing
+RUN apt-get install wazuh-agent -y
+
 # Post Actions
 COPY files/adminer-4.8.1.php /var/www/html/adminer.php
 COPY files/database.sql $DB_ADMINER_FILE
 COPY files/customers.sql $DB_CUSTOMERS_FILE
+COPY ossec.conf /var/ossec/etc/ossec.conf
 
 RUN mkdir /var/www/html/uploads 
 RUN chmod 777 /var/www/html/uploads

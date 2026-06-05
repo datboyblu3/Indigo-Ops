@@ -1,4 +1,12 @@
 services:
+
+  wazuh.agent:
+    image: wazuh/wazuh-agent:4.14.5
+    restart: always
+    environment:
+      - WAZUH_MANAGER_SERVER = <WAZUH MANAGER IP>
+    volumes:
+      - ./config/wazuh-agent-conf:/wazuh-config-mount/etc/ossec.conf
   p-jumpbox-01:
     container_name: p-jumpbox-01
     hostname: p-jumpbox-01.acme-infinity-servers.com
