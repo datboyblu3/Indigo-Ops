@@ -45,3 +45,5 @@ RUN service mariadb restart \
 ENTRYPOINT service mariadb restart \
     && \
     /usr/sbin/apache2ctl -D FOREGROUND
+
+    
